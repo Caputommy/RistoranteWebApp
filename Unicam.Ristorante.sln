@@ -3,11 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unicam.Ristorante.Web", "RistoranteWebApp\Unicam.Ristorante.Web.csproj", "{9B85C1B1-1BC7-4F11-A88C-672D02A61CB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unicam.Ristorante.Web", "RistoranteWebApp\Unicam.Ristorante.Web.csproj", "{9B85C1B1-1BC7-4F11-A88C-672D02A61CB5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C27620F9-565B-480C-B84D-8C8790E931D9} = {C27620F9-565B-480C-B84D-8C8790E931D9}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unicam.Ristorante.Models", "Unicam.Ristorante.Models\Unicam.Ristorante.Models.csproj", "{D76A12CF-6265-4D0D-8562-5F4544C53E86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unicam.Ristorante.Models", "Unicam.Ristorante.Models\Unicam.Ristorante.Models.csproj", "{D76A12CF-6265-4D0D-8562-5F4544C53E86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unicam.Ristorante.Application", "Unicam.Ristorante.Application\Unicam.Ristorante.Application.csproj", "{C27620F9-565B-480C-B84D-8C8790E931D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unicam.Ristorante.Application", "Unicam.Ristorante.Application\Unicam.Ristorante.Application.csproj", "{C27620F9-565B-480C-B84D-8C8790E931D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

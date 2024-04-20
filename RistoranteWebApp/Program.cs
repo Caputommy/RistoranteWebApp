@@ -1,7 +1,10 @@
+using Unicam.Ristorante.Models.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddModelServices(builder.Configuration);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -23,3 +26,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+//TEST
+//TODO: Fare primo test
