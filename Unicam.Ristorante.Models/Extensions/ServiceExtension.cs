@@ -12,7 +12,8 @@ namespace Unicam.Ristorante.Models.Extensions
         {
             services.AddDbContext<MyDbContext>(conf =>
             {
-                conf.UseSqlServer(configuration.GetConnectionString("MyDbContext"));
+                conf.UseSqlServer(configuration.GetConnectionString("MyDbContext"), 
+                    options => options.EnableRetryOnFailure());
             });
 
             services.AddScoped<UtenteRepository>();

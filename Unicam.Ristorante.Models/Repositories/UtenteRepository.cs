@@ -4,7 +4,7 @@ using Unicam.Ristorante.Models.Context;
 
 namespace Unicam.Ristorante.Models.Repositories
 {
-    internal class UtenteRepository : GenericRepository<Utente>
+    public class UtenteRepository : GenericRepository<Utente>
     {
         public UtenteRepository(MyDbContext ctx) : base(ctx)
         {

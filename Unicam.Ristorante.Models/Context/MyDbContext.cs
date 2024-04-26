@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Unicam.Ristorante.Models.Entities;
 
 namespace Unicam.Ristorante.Models.Context
@@ -20,6 +21,25 @@ namespace Unicam.Ristorante.Models.Context
         {
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
             base.OnModelCreating(modelBuilder);
+        }
+
+        //Per scopi di test
+        private IConfiguration configuration;
+
+        //Per scopi di test
+        public MyDbContext(IConfiguration configuration) : base()
+        {
+            this.configuration = configuration;
+        }
+
+        //Per scopi di test
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured && this.configuration != null)
+            {
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("MyDbContext"), 
+                    options => options.EnableRetryOnFailure());
+            }
         }
     }
 }
