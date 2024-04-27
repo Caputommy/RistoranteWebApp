@@ -17,6 +17,7 @@ namespace Unicam.Ristorante.Models.Extensions
             });
 
             services.AddScoped<UtenteRepository>();
+            services.AddScoped<PortataRepository>();
 
             return services;
         }

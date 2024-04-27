@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Unicam.Ristorante.Models.Entities;
 
 namespace Unicam.Ristorante.Models.Context
@@ -16,30 +15,12 @@ namespace Unicam.Ristorante.Models.Context
         }
 
         public DbSet<Utente> Utenti { get; set; }
+        public DbSet<Portata> Portate { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
             base.OnModelCreating(modelBuilder);
-        }
-
-        //Per scopi di test
-        private IConfiguration configuration;
-
-        //Per scopi di test
-        public MyDbContext(IConfiguration configuration) : base()
-        {
-            this.configuration = configuration;
-        }
-
-        //Per scopi di test
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured && this.configuration != null)
-            {
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("MyDbContext"), 
-                    options => options.EnableRetryOnFailure());
-            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Unicam.Ristorante.Models.Configurations
             builder.Property(u => u.Nome).HasMaxLength(100);
             builder.Property(u => u.Cognome).HasMaxLength(100);
             builder.Property(u => u.Password).HasMaxLength(100).IsRequired();
-            builder.Property(u => u.Ruolo).IsRequired();
+            builder.Property(u => u.Ruolo).HasConversion<int>().IsRequired();
         }
 
     }
