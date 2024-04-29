@@ -15,13 +15,13 @@ namespace Unicam.Ristorante.Testing.Repository
             },
             new Portata()
             {
-                Prezzo = 6M,
-                Tipo = TipoPortata.Secondo
+                Nome = "Arista",
+                Prezzo = 10M
             },
             new Portata()
             {
                 Nome = "Tiramisù",
-                Prezzo = 10.501M,
+                Prezzo = 4.501M,
                 Tipo = TipoPortata.Dolce
             }
         };
@@ -75,7 +75,6 @@ namespace Unicam.Ristorante.Testing.Repository
         [Test]
         public async Task ShouldUpdateCourse()
         {
-            var entries = TestUtils.ctx.ChangeTracker.Entries<Portata>();
             await _repository.AggiungiAsync(portateTest[0]);
             await _repository.SaveAsync();
 

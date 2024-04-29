@@ -8,12 +8,12 @@ namespace Unicam.Ristorante.Models.Entities
 {
     public class Utente
     {
-        public int Id { get; set; }
-        public string Email { get; set; }
-        public string Nome { get; set; }
-        public string Cognome { get; set; }
-        public string Password { get; set; }
-        public Ruolo Ruolo { get; set; }
+        public int      Id          { get; set; }
+        public string?  Email       { get; set; } = null!;
+        public string?  Nome        { get; set; } = null!;
+        public string?  Cognome     { get; set; } = null!;
+        public string?  Password    { get; set; } = null!;
+        public Ruolo?   Ruolo       { get; set; } = null!;
 
     }
 }

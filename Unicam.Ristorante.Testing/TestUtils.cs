@@ -19,7 +19,7 @@ namespace Unicam.Ristorante.Testing
 
         internal static async Task ClearRepositoryAsync(string tableName)
         {
-            await ctx.Database.ExecuteSqlRawAsync($"TRUNCATE TABLE [{tableName}]");
+            await ctx.Database.ExecuteSqlRawAsync($"DELETE FROM [{tableName}]");
         }
 
         internal static void DetachAllEntities()

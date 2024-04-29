@@ -8,9 +8,9 @@ namespace Unicam.Ristorante.Models.Entities
 {
     public class Portata
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public decimal Prezzo { get; set; }
-        public TipoPortata Tipo { get; set; }
+        public int          Id      { get; set; }
+        public string?      Nome    { get; set; } = null!;
+        public decimal?     Prezzo  { get; set; } = null!;
+        public TipoPortata? Tipo    { get; set; } = null!;
     }
 }

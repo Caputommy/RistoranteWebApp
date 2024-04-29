@@ -35,7 +35,7 @@ namespace Unicam.Ristorante.Testing.Repository
         {
             TestUtils.DetachAllEntities();
             foreach (Utente utente in utentiTest) utente.Id = 0;
-            await TestUtils.ClearRepositoryAsync(PortataConfiguration.TableName);
+            await TestUtils.ClearRepositoryAsync(UtenteConfiguration.TableName);
         }
 
         [Test]
