@@ -12,7 +12,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unicam.Ristorante.Models", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unicam.Ristorante.Application", "Unicam.Ristorante.Application\Unicam.Ristorante.Application.csproj", "{C27620F9-565B-480C-B84D-8C8790E931D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unicam.Ristorante.Testing", "Unicam.Ristorante.Testing\Unicam.Ristorante.Testing.csproj", "{799337FB-36C8-4000-80F8-69E682E87B17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unicam.Ristorante.Testing", "Unicam.Ristorante.Testing\Unicam.Ristorante.Testing.csproj", "{799337FB-36C8-4000-80F8-69E682E87B17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementi di soluzione", "Elementi di soluzione", "{6B09B717-6279-43FF-A395-8E32FD87ED26}"
+	ProjectSection(SolutionItems) = preProject
+		RistoranteDB.sql = RistoranteDB.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
