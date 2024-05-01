@@ -1,16 +1,22 @@
 using Unicam.Ristorante.Models.Extensions;
+using Unicam.Ristorante.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddModelServices(builder.Configuration);
+builder.Services.AddApplicationServices(builder.Configuration);
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+AppContext.SetSwitch("System.Globalization.Invariant", false);
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -27,5 +33,3 @@ app.MapControllers();
 
 app.Run();
 
-//TEST
-//TODO: Fare primo test

@@ -12,10 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Unicam.Ristorante.Application\Unicam.Ristorante.Application.csproj" />
     <ProjectReference Include="..\Unicam.Ristorante.Models\Unicam.Ristorante.Models.csproj" />
   </ItemGroup>
 
