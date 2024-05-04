@@ -37,18 +37,18 @@ namespace Unicam.Ristorante.Testing.Repository
             new Utente()
             {
                 Email = "mario.rossi@gmail.com",
-                Password = "password123",
+                Password = "Password123",
                 Ruolo = Ruolo.Cliente
             },
             new Utente()
             {
                 Email = "luigi.bianchi@gmail.com",
-                Password = "password123",
+                Password = "Password123",
                 Ruolo = Ruolo.Cliente
             }
         };
 
-        private Ordine[] ordiniTest = {
+        private static Ordine[] ordiniTest = {
             new Ordine()
             {
                 Data = DateTime.Now,

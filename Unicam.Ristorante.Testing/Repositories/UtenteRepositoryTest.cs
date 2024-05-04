@@ -14,7 +14,7 @@ namespace Unicam.Ristorante.Testing.Repository
                 Email = "marco.caputo@gmail.com",
                 Nome = "Marco",
                 Cognome = "Caputo",
-                Password = "password123",
+                Password = "Password123",
                 Ruolo = Ruolo.Cliente
             },
             new Utente()
@@ -25,7 +25,7 @@ namespace Unicam.Ristorante.Testing.Repository
             {
                 Nome = "Marco",
                 Cognome = "Caputo",
-                Password = "password123",
+                Password = "Password123",
                 Ruolo = Ruolo.Cliente
             }
         };
