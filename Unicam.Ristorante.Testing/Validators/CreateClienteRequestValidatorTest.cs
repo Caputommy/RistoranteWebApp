@@ -25,6 +25,16 @@ namespace Unicam.Ristorante.Testing.Validators
             {
                 Email = "luigi.bianchi@hotmail.it",
                 Password = "Pass1"
+            },
+            new CreateClienteRequest()
+            {
+                Email = "luigi.bianchi@hotmail.it",
+                Password = "password"
+            },
+            new CreateClienteRequest()
+            {
+                Email = "luigi@bianchi@hotmail.it",
+                Password = ""
             }
         };
 
@@ -56,6 +66,34 @@ namespace Unicam.Ristorante.Testing.Validators
             Assert.That(result.Errors, Has.Count.EqualTo(1));
             Assert.That(result.Errors[0].PropertyName, Is.EqualTo("Password"));
             Assert.That(result.Errors[0].ErrorMessage, Is.EqualTo(CreateClienteRequestValidator.ShortPasswordMessage));
+        }
+
+        [Test]
+        public void ShouldNotValidate3()
+        {
+            var result = _validator.Validate(requests[3]);
+
+            Assert.False(result.IsValid);
+            Assert.That(result.Errors, Has.Count.EqualTo(1));
+            Assert.That(result.Errors[0].PropertyName, Is.EqualTo("Password"));
+            Assert.That(result.Errors[0].ErrorMessage, Is.EqualTo(CreateClienteRequestValidator.InvalidPasswordMessage));
+        }
+
+        [Test]
+        public void ShouldNotValidate4()
+        {
+            var result = _validator.Validate(requests[4]);
+
+            Assert.False(result.IsValid);
+            Assert.That(result.Errors, Has.Count.EqualTo(4));
+            Assert.That(result.Errors[0].PropertyName, Is.EqualTo("Email"));
+            Assert.That(result.Errors[0].ErrorMessage, Is.EqualTo(CreateClienteRequestValidator.InvalidEmailMessage));
+            Assert.That(result.Errors[1].PropertyName, Is.EqualTo("Password"));
+            Assert.That(result.Errors[1].ErrorMessage, Is.EqualTo(CreateClienteRequestValidator.RequiredPasswordMessage));
+            Assert.That(result.Errors[2].PropertyName, Is.EqualTo("Password"));
+            Assert.That(result.Errors[2].ErrorMessage, Is.EqualTo(CreateClienteRequestValidator.ShortPasswordMessage));
+            Assert.That(result.Errors[3].PropertyName, Is.EqualTo("Password"));
+            Assert.That(result.Errors[3].ErrorMessage, Is.EqualTo(CreateClienteRequestValidator.InvalidPasswordMessage));
         }
     }
 }
