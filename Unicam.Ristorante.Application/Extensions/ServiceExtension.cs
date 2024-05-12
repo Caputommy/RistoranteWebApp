@@ -8,13 +8,14 @@ namespace Unicam.Ristorante.Application.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
-            
             services.AddValidatorsFromAssembly(
                 AppDomain.CurrentDomain.GetAssemblies().
                 SingleOrDefault(assembly => assembly.GetName().Name == "Unicam.Ristorante.Application")
             );
 
+            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUtenteService, UtenteService>();
+
             return services;
         }
     }

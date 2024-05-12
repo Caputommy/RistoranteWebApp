@@ -21,8 +21,6 @@ namespace Unicam.Ristorante.Web.Controllers
         [Route("new")]
         public async Task<IActionResult> CreateCliente(CreateClienteRequest request)
         {
-            /*var validator = new CreateUtenteRequestValidator();
-            validator.Validate(request);*/
             var utente = request.ToEntity();
             await _utenteService.AddUtenteAsync(utente);
 
