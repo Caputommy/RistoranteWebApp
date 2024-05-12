@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Unicam.Ristorante.Application.Abstractions.Services;
 using Unicam.Ristorante.Application.Factory;
 using Unicam.Ristorante.Application.Models.Dtos;
@@ -19,6 +20,7 @@ namespace Unicam.Ristorante.Web.Controllers
 
         [HttpPost]
         [Route("new")]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateCliente(CreateClienteRequest request)
         {
             var utente = request.ToEntity();

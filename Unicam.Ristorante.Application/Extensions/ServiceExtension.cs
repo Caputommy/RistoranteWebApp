@@ -15,6 +15,8 @@ namespace Unicam.Ristorante.Application.Extensions
 
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUtenteService, UtenteService>();
+            services.AddScoped<IPortataService, PortataService>();
+            services.AddScoped<IOrdineService, OrdineService>();
 
             return services;
         }

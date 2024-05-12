@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Unicam.Ristorante.Application.Abstractions.Services;
 using Unicam.Ristorante.Application.Factory;
 using Unicam.Ristorante.Application.Models.Requests;
@@ -18,6 +19,7 @@ namespace Unicam.Ristorante.Web.Controllers
 
         [HttpPost]
         [Route("create")]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateToken(CreateTokenRequest request)
         {
             var token = await _tokenService.CreateTokenAsync(request);

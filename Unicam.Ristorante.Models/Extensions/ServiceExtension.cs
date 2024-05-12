@@ -18,6 +18,7 @@ namespace Unicam.Ristorante.Models.Extensions
 
             services.AddScoped<UtenteRepository>();
             services.AddScoped<PortataRepository>();
+            services.AddScoped<IndirizzoRepository>();
             services.AddScoped<OrdineRepository>();
 
             return services;

@@ -1,4 +1,5 @@
-﻿using Unicam.Ristorante.Models.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Unicam.Ristorante.Models.Context;
 
 namespace Unicam.Ristorante.Models.Repositories
 {
@@ -23,6 +24,11 @@ namespace Unicam.Ristorante.Models.Repositories
         public async Task<T> OttieniAsync(object id)
         {
             return await _ctx.Set<T>().FindAsync(id);
+        }
+
+        public async Task<IEnumerable<T>> OttieniTuttiAsync()
+        {
+            return await _ctx.Set<T>().ToListAsync();
         }
 
         public async Task EliminaAsync(object id)
