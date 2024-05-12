@@ -1,0 +1,98 @@
+﻿using Unicam.Ristorante.Application.Models.Requests;
+using Unicam.Ristorante.Application.Validators;
+
+namespace Unicam.Ristorante.Testing.Validators
+{
+    [TestFixture]
+    internal class CreateTokenRequestValidatorTest
+    {
+        private CreateTokenRequestValidator _validator = new CreateTokenRequestValidator();
+
+        private static CreateTokenRequest[] requests =
+        {
+            new CreateTokenRequest()
+            {
+                Email = "marco.caputo@popmail.com",
+                Password = "Password123"
+            },
+            new CreateTokenRequest()
+            {
+                Email = "mario@rossi@popmail.com",
+                Password = "PassWord123"
+            },
+            new CreateTokenRequest()
+            {
+                Email = "luigi.bianchi@hotmail.it",
+                Password = "Pass1"
+            },
+            new CreateTokenRequest()
+            {
+                Email = "luigi.bianchi@hotmail.it",
+                Password = "password"
+            },
+            new CreateTokenRequest()
+            {
+                Email = "luigi@bianchi@hotmail.it",
+                Password = ""
+            }
+        };
+
+        [Test]
+        public void ShouldValidate()
+        {
+            var result = _validator.Validate(requests[0]);
+
+            Assert.True(result.IsValid);
+        }
+
+        [Test]
+        public void ShouldNotValidate1()
+        {
+            var result = _validator.Validate(requests[1]);
+
+            Assert.False(result.IsValid);
+            Assert.That(result.Errors, Has.Count.EqualTo(1));
+            Assert.That(result.Errors[0].PropertyName, Is.EqualTo("Email"));
+            Assert.That(result.Errors[0].ErrorMessage, Is.EqualTo(CreateTokenRequestValidator.InvalidEmailMessage));
+        }
+
+        [Test]
+        public void ShouldNotValidate2()
+        {
+            var result = _validator.Validate(requests[2]);
+
+            Assert.False(result.IsValid);
+            Assert.That(result.Errors, Has.Count.EqualTo(1));
+            Assert.That(result.Errors[0].PropertyName, Is.EqualTo("Password"));
+            Assert.That(result.Errors[0].ErrorMessage, Is.EqualTo(CreateTokenRequestValidator.ShortPasswordMessage));
+        }
+
+        [Test]
+        public void ShouldNotValidate3()
+        {
+            var result = _validator.Validate(requests[3]);
+
+            Assert.False(result.IsValid);
+            Assert.That(result.Errors, Has.Count.EqualTo(1));
+            Assert.That(result.Errors[0].PropertyName, Is.EqualTo("Password"));
+            Assert.That(result.Errors[0].ErrorMessage, Is.EqualTo(CreateTokenRequestValidator.InvalidPasswordMessage));
+        }
+
+        [Test]
+        public void ShouldNotValidate4()
+        {
+            var result = _validator.Validate(requests[4]);
+
+            Assert.False(result.IsValid);
+            Assert.That(result.Errors, Has.Count.EqualTo(4));
+            Assert.That(result.Errors[0].PropertyName, Is.EqualTo("Email"));
+            Assert.That(result.Errors[0].ErrorMessage, Is.EqualTo(CreateTokenRequestValidator.InvalidEmailMessage));
+            Assert.That(result.Errors[1].PropertyName, Is.EqualTo("Password"));
+            Assert.That(result.Errors[1].ErrorMessage, Is.EqualTo(CreateTokenRequestValidator.RequiredPasswordMessage));
+            Assert.That(result.Errors[2].PropertyName, Is.EqualTo("Password"));
+            Assert.That(result.Errors[2].ErrorMessage, Is.EqualTo(CreateTokenRequestValidator.ShortPasswordMessage));
+            Assert.That(result.Errors[3].PropertyName, Is.EqualTo("Password"));
+            Assert.That(result.Errors[3].ErrorMessage, Is.EqualTo(CreateTokenRequestValidator.InvalidPasswordMessage));
+        }
+    }
+}
