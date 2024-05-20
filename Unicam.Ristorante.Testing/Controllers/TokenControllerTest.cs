@@ -60,7 +60,7 @@ namespace Unicam.Ristorante.Testing.Controllers
         [SetUp]
         public async Task SetUpAsync()
         {
-            await _utenteController.CreateCliente(clienteRequests[0]);
+            await _utenteController.CreateClienteAsync(clienteRequests[0]);
         }
 
         [TearDown]

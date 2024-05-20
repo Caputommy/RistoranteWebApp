@@ -46,7 +46,7 @@ namespace Unicam.Ristorante.Testing.Controllers
         [Test]
         public async Task ShouldAddUser()
         {
-            var result = await _controller.CreateCliente(requests[0]);
+            var result = await _controller.CreateClienteAsync(requests[0]);
 
             Assert.That(result, Is.TypeOf<OkObjectResult>());
 
@@ -61,13 +61,13 @@ namespace Unicam.Ristorante.Testing.Controllers
         [Test]
         public void ShouldNotAddUserWithMissinPassword()
         {
-            Assert.ThrowsAsync<DbUpdateException>(async () => await _controller.CreateCliente(requests[1]));
+            Assert.ThrowsAsync<DbUpdateException>(async () => await _controller.CreateClienteAsync(requests[1]));
         }
 
         [Test]
         public async Task ShouldAddUserWithoutNameAndSurname()
         {
-            var result = await _controller.CreateCliente(requests[2]);
+            var result = await _controller.CreateClienteAsync(requests[2]);
 
             Assert.That(result, Is.TypeOf<OkObjectResult>());
 

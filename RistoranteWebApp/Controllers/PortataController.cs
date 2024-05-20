@@ -11,7 +11,7 @@ namespace Unicam.Ristorante.Web.Controllers
     [ApiController]
     [Route("api/v1/[controller]")]
     public class PortataController : ControllerBase
-    { //TODO: Testare il controller
+    {
         private readonly IPortataService _portataService;
 
         public PortataController(IPortataService portataService)
@@ -35,7 +35,7 @@ namespace Unicam.Ristorante.Web.Controllers
         [HttpGet]
         [Route("list")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetPortate()
+        public async Task<IActionResult> GetPortateAsync()
         {
             var portate = await _portataService.GetPortateAsync();
             var response = new GetPortateResponse(portate.Select(p => new PortataDto(p)).ToList());

@@ -4,11 +4,11 @@ namespace Unicam.Ristorante.Application.Models.Responses
 {
     public class GetPortateResponse
     {
-        public List<PortataDto> portate { get; set; } = new List<PortataDto>();
+        public List<PortataDto> Portate { get; set; } = new List<PortataDto>();
         
         public GetPortateResponse(List<PortataDto> portate)
         {
-            this.portate = portate;
+            this.Portate = portate;
         }
     }
 }

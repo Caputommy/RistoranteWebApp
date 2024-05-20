@@ -21,7 +21,7 @@ namespace Unicam.Ristorante.Web.Controllers
         [HttpPost]
         [Route("new")]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateCliente(CreateClienteRequest request)
+        public async Task<IActionResult> CreateClienteAsync(CreateClienteRequest request)
         {
             var utente = request.ToEntity();
             await _utenteService.AddUtenteAsync(utente);
