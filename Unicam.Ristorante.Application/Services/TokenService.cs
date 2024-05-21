@@ -47,7 +47,7 @@ namespace Unicam.Ristorante.Application.Services
                 new Claim("Email", utente.Email),
                 new Claim("Nome", utente.Nome),
                 new Claim("Cognome", utente.Cognome),
-                new Claim("Ruolo", utente.Ruolo.ToString())
+                new Claim(ClaimTypes.Role, utente.Ruolo.ToString())
             };
 
             var securityKey = new SymmetricSecurityKey(

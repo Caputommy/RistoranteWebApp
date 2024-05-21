@@ -21,7 +21,7 @@ namespace Unicam.Ristorante.Web.Controllers
 
         [HttpPost]
         [Route("new")]
-        [AllowAnonymous] //TODO: Add authorization for admin
+        [Authorize] //TODO: Add authorization for admin
         public async Task<IActionResult> CreatePortataAsync(CreatePortataRequest request)
         {
             var portata = request.ToEntity();
