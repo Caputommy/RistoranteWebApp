@@ -21,7 +21,7 @@ namespace Unicam.Ristorante.Web.Controllers
 
         [HttpPost]
         [Route("new")]
-        [Authorize] //TODO: Add authorization for admin
+        [Authorize(Roles = "Amministratore")]
         public async Task<IActionResult> CreatePortataAsync(CreatePortataRequest request)
         {
             var portata = request.ToEntity();

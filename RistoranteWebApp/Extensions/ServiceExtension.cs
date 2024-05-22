@@ -89,7 +89,9 @@ namespace Unicam.Ristorante.Web.Extensions
                         ValidateAudience = false,
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = jwtAuthenticationOption.Issuer,
-                        IssuerSigningKey = securityKey
+                        IssuerSigningKey = securityKey,
+                        NameClaimType = "Id",
+                        RoleClaimType = "Ruolo"
                     };
                 });
 
