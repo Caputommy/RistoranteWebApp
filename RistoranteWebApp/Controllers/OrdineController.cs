@@ -21,7 +21,7 @@ namespace Unicam.Ristorante.Web.Controllers
         [Authorize(Roles = "Amministratore")]
         public async Task<IActionResult> CreateOrdineAsync()
         {
-            //TODO: Fare CreateOrdine validator,
+            //TODO: Testare CreateOrdine validator,
             //prendere id dell'utente,
             //richiamare il servizio,
             //poi rispondere con CreateOrdineResponse calcolando il prezzo nel service
