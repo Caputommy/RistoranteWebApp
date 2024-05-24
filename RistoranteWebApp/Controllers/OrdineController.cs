@@ -25,6 +25,7 @@ namespace Unicam.Ristorante.Web.Controllers
             //prendere id dell'utente,
             //richiamare il servizio,
             //poi rispondere con CreateOrdineResponse calcolando il prezzo nel service
+            return null;
         }
 
     }

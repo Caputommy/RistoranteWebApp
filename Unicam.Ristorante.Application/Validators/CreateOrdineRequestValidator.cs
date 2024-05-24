@@ -9,6 +9,7 @@ namespace Unicam.Ristorante.Application.Validators
         public static string FutureDateMessage = "La data deve essere oggi o successiva ad oggi";
         public static string RequiredAddressMessage = "Indirizzo richiesto";
         public static string RequiredOrderItemsMessage = "Almeno una voce d'ordine richiesta";
+
         public CreateOrdineRequestValidator() 
         {
             RuleFor(p => p.Data)

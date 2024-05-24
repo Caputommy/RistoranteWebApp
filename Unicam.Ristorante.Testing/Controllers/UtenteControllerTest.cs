@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Unicam.Ristorante.Application.Models.Requests;
 using Unicam.Ristorante.Application.Models.Responses;
 using Unicam.Ristorante.Application.Services;
-using Unicam.Ristorante.Application.Validators;
 using Unicam.Ristorante.Web.Controllers;
 
 namespace Unicam.Ristorante.Testing.Controllers
