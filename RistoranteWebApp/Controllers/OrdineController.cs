@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Unicam.Ristorante.Application.Abstractions.Services;
-using Unicam.Ristorante.Application.Services;
+using Unicam.Ristorante.Application.Factory;
+using Unicam.Ristorante.Application.Models.Requests;
+using Unicam.Ristorante.Application.Models.Responses;
+using Unicam.Ristorante.Models.Entities;
 
 namespace Unicam.Ristorante.Web.Controllers
 {
@@ -18,14 +22,17 @@ namespace Unicam.Ristorante.Web.Controllers
 
         [HttpPost]
         [Route("create")]
-        [Authorize(Roles = "Amministratore")]
-        public async Task<IActionResult> CreateOrdineAsync()
+        [Authorize(Roles = "Cliente")]
+        public async Task<IActionResult> CreateOrdineAsync(CreateOrdineRequest request)
         {
-            //TODO: Testare CreateOrdine validator,
-            //prendere id dell'utente,
-            //richiamare il servizio,
-            //poi rispondere con CreateOrdineResponse calcolando il prezzo nel service
-            return null;
+            ClaimsIdentity identity = this.User.Identity as ClaimsIdentity;
+            int id = Int32.Parse(identity.Claims.Where(c => c.Type == "Id").FirstOrDefault().Value);
+
+            Ordine ordine = request.ToEntity();
+            decimal totale = await _ordineService.CreateOrdineAsync(id, ordine);
+            var response = new CreateOrdineResponse(ordine, totale);
+
+            return Ok(ResponseFactory.WithSuccess(response));
         }
 
     }

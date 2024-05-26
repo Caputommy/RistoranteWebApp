@@ -4,6 +4,6 @@ namespace Unicam.Ristorante.Application.Abstractions.Services
 {
     public interface IOrdineService
     {
-        Task CreateOrdineAsync(int idUtente, Ordine oridne);
+        Task<decimal> CreateOrdineAsync(int idUtente, Ordine oridne);
     }
 }

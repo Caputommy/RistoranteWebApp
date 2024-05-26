@@ -1,4 +1,5 @@
-﻿using Unicam.Ristorante.Application.Abstractions.Services;
+﻿using System.Security.Cryptography;
+using Unicam.Ristorante.Application.Abstractions.Services;
 using Unicam.Ristorante.Models.Entities;
 using Unicam.Ristorante.Models.Repositories;
 
@@ -14,11 +15,13 @@ namespace Unicam.Ristorante.Application.Services
             _ordineRepository = ordineRepository;
             _indirizzoRepository = indirizzoRepository;
         }
-        public async Task CreateOrdineAsync(int idUtente, Ordine ordine)
+        public async Task<decimal> CreateOrdineAsync(int idUtente, Ordine ordine)
         {
             await ImpostaIndirizzo(ordine);
             ordine.IdUtente = idUtente;
             await _ordineRepository.AggiungiAsync(ordine);
+            await _ordineRepository.SaveAsync();
+            return CalcolaPrezzo(ordine);
         }
 
         //TODO: Testare se così funziona ma non credo
@@ -31,6 +34,29 @@ namespace Unicam.Ristorante.Application.Services
                 ordine.IndirizzoConsegna = null!;
                 ordine.IdIndirizzo = idIndirizzo;
             }
+        }
+
+        private decimal CalcolaPrezzo(Ordine ordine)
+        {
+            var listePrezziPerTipo = Enum
+                .GetValues(typeof(TipoPortata))
+                .Cast<TipoPortata>()
+                .Select(t => OttieniListaPrezziOrdinata(ordine, t))
+                .ToList();
+
+            //TODO: 
+
+
+            return 0M;
+        }
+
+        private List<decimal> OttieniListaPrezziOrdinata(Ordine ordine, TipoPortata tipo)
+        {
+            return ordine.Voci
+                .Where(v => v.Portata.Tipo == tipo)
+                .OrderBy(v => v.Portata.Prezzo)
+                .SelectMany(v => Enumerable.Repeat(v.Portata.Prezzo ?? 0, v.Quantita ?? 0))
+                .ToList();
         }
     }
 }
