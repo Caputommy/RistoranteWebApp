@@ -10,6 +10,8 @@ namespace Unicam.Ristorante.Application.Services
         private readonly OrdineRepository _ordineRepository;
         private readonly IndirizzoRepository _indirizzoRepository;
 
+        private static readonly decimal CoefficienteSconto = 0.9M;
+
         public OrdineService(OrdineRepository ordineRepository, IndirizzoRepository indirizzoRepository) 
         { 
             _ordineRepository = ordineRepository;
@@ -44,17 +46,20 @@ namespace Unicam.Ristorante.Application.Services
                 .Select(t => OttieniListaPrezziOrdinata(ordine, t))
                 .ToList();
 
-            //TODO: 
+            var numeroPastiCompleti = listePrezziPerTipo
+                .Select(l => l.Count)
+                .Min();
 
-
-            return 0M;
+            return listePrezziPerTipo
+                .SelectMany(l => l.Select((value, index) => index < numeroPastiCompleti ? value * CoefficienteSconto : value))
+                .Sum();
         }
 
         private List<decimal> OttieniListaPrezziOrdinata(Ordine ordine, TipoPortata tipo)
         {
             return ordine.Voci
                 .Where(v => v.Portata.Tipo == tipo)
-                .OrderBy(v => v.Portata.Prezzo)
+                .OrderByDescending(v => v.Portata.Prezzo)
                 .SelectMany(v => Enumerable.Repeat(v.Portata.Prezzo ?? 0, v.Quantita ?? 0))
                 .ToList();
         }
