@@ -9,6 +9,10 @@ namespace Unicam.Ristorante.Application.Models.Dtos
         public string Citta { get; set; } = null!;
         public string CAP { get; set; } = null!;
 
+        public IndirizzoDto()
+        {
+        }
+
         public IndirizzoDto(Indirizzo indirizzo)
         {
             Via = indirizzo.Via;
