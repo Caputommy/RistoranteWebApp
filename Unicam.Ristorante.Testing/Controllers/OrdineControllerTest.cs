@@ -16,11 +16,12 @@ namespace Unicam.Ristorante.Testing.Controllers
     internal class OrdineControllerTest {
 
         private static IndirizzoRepository _indirizzoRepository = new IndirizzoRepository(TestUtils.ctx);
+        private static PortataRepository _portataRepository = new PortataRepository(TestUtils.ctx);
 
         private UtenteController utenteController = new UtenteController(new UtenteService(new UtenteRepository(TestUtils.ctx)));
 
         private OrdineController _controller =
-            new OrdineController(new OrdineService(new OrdineRepository(TestUtils.ctx), _indirizzoRepository));
+            new OrdineController(new OrdineService(new OrdineRepository(TestUtils.ctx), _indirizzoRepository, _portataRepository));
 
         private PortataController _portataController =
             new PortataController(new PortataService(new PortataRepository(TestUtils.ctx)));
@@ -257,6 +258,23 @@ namespace Unicam.Ristorante.Testing.Controllers
             Assert.That(indirizzo.NumeroCivico, Is.EqualTo(indirizzi[0].NumeroCivico));
             Assert.That(indirizzo.Citta, Is.EqualTo(indirizzi[0].Citta));
             Assert.That(indirizzo.CAP, Is.EqualTo(indirizzi[0].CAP));
+        }
+
+        [Test]
+        public async Task ShouldNotFindCourse()
+        {
+            CreateOrdineRequest request = new CreateOrdineRequest()
+            {
+                Data = DateTime.Now,
+                Indirizzo = new IndirizzoDto(indirizzi[0]),
+                Voci = new List<CreateVoceOrdineRequest>()
+                {
+                    new CreateVoceOrdineRequest(){IdPortata = 0, Quantita = 1},
+                    new CreateVoceOrdineRequest(){IdPortata = portate[1].Id, Quantita = 2},
+                }
+            };
+
+            Assert.ThrowsAsync<ArgumentException>(() => _controller.CreateOrdineAsync(request));
         }
     }
 }

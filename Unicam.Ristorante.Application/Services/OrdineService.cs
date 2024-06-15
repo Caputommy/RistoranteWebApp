@@ -9,24 +9,27 @@ namespace Unicam.Ristorante.Application.Services
     {
         private readonly OrdineRepository _ordineRepository;
         private readonly IndirizzoRepository _indirizzoRepository;
+        private readonly PortataRepository _portataRepository;
 
         private static readonly decimal CoefficienteSconto = 0.9M;
 
-        public OrdineService(OrdineRepository ordineRepository, IndirizzoRepository indirizzoRepository) 
+        public OrdineService(OrdineRepository ordineRepository, IndirizzoRepository indirizzoRepository, PortataRepository portataRepository) 
         { 
             _ordineRepository = ordineRepository;
             _indirizzoRepository = indirizzoRepository;
+            _portataRepository = portataRepository;
         }
         public async Task<decimal> CreateOrdineAsync(int idUtente, Ordine ordine)
         {
             await ImpostaIndirizzo(ordine);
+            await ImpostaPortate(ordine);
             ordine.IdUtente = idUtente;
+
             await _ordineRepository.AggiungiAsync(ordine);
             await _ordineRepository.SaveAsync();
+
             return CalcolaPrezzo(ordine);
         }
-
-        //TODO: Testare se così funziona ma non credo
 
         private async Task ImpostaIndirizzo(Ordine ordine)
         {
@@ -35,6 +38,18 @@ namespace Unicam.Ristorante.Application.Services
             {
                 ordine.IndirizzoConsegna = null!;
                 ordine.IdIndirizzo = idIndirizzo;
+            }
+        }
+
+        private async Task ImpostaPortate(Ordine ordine)
+        {
+            foreach (var voce in ordine.Voci)
+            {
+                voce.Portata = await _portataRepository.OttieniAsync(voce.IdPortata);
+                if (voce.Portata == null)
+                {
+                    throw new ArgumentException($"Portata con id {voce.IdPortata} non trovata");
+                }
             }
         }
 

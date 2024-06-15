@@ -73,6 +73,7 @@ namespace Unicam.Ristorante.Testing.Repository
             foreach (Indirizzo indirizzo in indirizziTest) indirizzo.Id = 0;
             await TestUtils.ClearRepositoryAsync(VoceOrdineConfiguration.TableName);
             await TestUtils.ClearRepositoryAsync(OrdineConfiguration.TableName);
+            await TestUtils.ClearRepositoryAsync(IndirizzoConfiguration.TableName);
             await TestUtils.ClearRepositoryAsync(UtenteConfiguration.TableName);
         }
 
