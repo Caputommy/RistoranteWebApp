@@ -5,13 +5,9 @@
     {
         /*
         [OneTimeSetUp]
-        public void Setup()
+        public async Task Setup()
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json").Build();
-
-            var ctx = new MyDbContext(config);
+            await TestUtils.ClearAllRepositoriesAsync();
         }
         */
     }

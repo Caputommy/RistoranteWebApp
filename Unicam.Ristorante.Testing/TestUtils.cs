@@ -22,6 +22,15 @@ namespace Unicam.Ristorante.Testing
             await ctx.Database.ExecuteSqlRawAsync($"DELETE FROM [{tableName}]");
         }
 
+        internal static async Task ClearAllRepositoriesAsync()
+        {
+            await ClearRepositoryAsync(VoceOrdineConfiguration.TableName);
+            await ClearRepositoryAsync(OrdineConfiguration.TableName);
+            await ClearRepositoryAsync(IndirizzoConfiguration.TableName);
+            await ClearRepositoryAsync(PortataConfiguration.TableName);
+            await ClearRepositoryAsync(UtenteConfiguration.TableName);
+        }
+
         internal static void DetachAllEntities()
         {
             ctx.ChangeTracker.Clear();

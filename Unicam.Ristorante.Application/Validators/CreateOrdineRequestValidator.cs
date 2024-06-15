@@ -14,7 +14,7 @@ namespace Unicam.Ristorante.Application.Validators
         {
             RuleFor(p => p.Data)
                 .NotNull().WithMessage(RequiredDateMessage)
-                .GreaterThanOrEqualTo(DateTime.Now).WithMessage(FutureDateMessage);
+                .GreaterThanOrEqualTo(DateTime.Now.Date).WithMessage(FutureDateMessage);
 
             RuleFor(p => p.Indirizzo)
                 .NotNull().WithMessage(RequiredAddressMessage)

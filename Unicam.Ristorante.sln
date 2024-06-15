@@ -16,7 +16,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unicam.Ristorante.Testing",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementi di soluzione", "Elementi di soluzione", "{6B09B717-6279-43FF-A395-8E32FD87ED26}"
 	ProjectSection(SolutionItems) = preProject
-		RistoranteDB.sql = RistoranteDB.sql
+		EsempioIstanzaDB.sql = EsempioIstanzaDB.sql
+		SchemaDB.sql = SchemaDB.sql
 	EndProjectSection
 EndProject
 Global

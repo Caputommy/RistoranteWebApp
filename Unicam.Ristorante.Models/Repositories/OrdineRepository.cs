@@ -11,13 +11,21 @@ namespace Unicam.Ristorante.Models.Repositories
         {
         }
 
-        public async Task<Ordine> OttieniConEagerLoadingAsync(int numero)
+        public async Task<List<Ordine>> OttieniTuttiAsync(DateTime dataInizio, DateTime dataFine, int? idCliente)
         {
-            return await _ctx.Ordini.Where(o => o.Numero == numero)
+            var query = _ctx.Ordini
+                .Where(o => dataInizio <= o.Data && o.Data <= dataFine);
+
+            if (idCliente != null)
+            {
+                query = query.Where(o => o.IdUtente == idCliente);
+            }
+
+            return await query
                 .Include(o => o.IndirizzoConsegna)
                 .Include(o => o.Voci)
                 .ThenInclude(v => v.Portata)
-                .FirstAsync();
+                .ToListAsync();
         }
     }
 }

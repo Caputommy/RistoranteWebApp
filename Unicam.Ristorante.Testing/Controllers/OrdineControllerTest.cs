@@ -7,7 +7,6 @@ using static Unicam.Ristorante.Application.Models.Requests.CreateOrdineRequest;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
-using Unicam.Ristorante.Models.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Unicam.Ristorante.Testing.Controllers
@@ -81,7 +80,7 @@ namespace Unicam.Ristorante.Testing.Controllers
         };
 
         [SetUp]
-        public async Task CreateCourses()
+        public async Task CreateCoursesAndMockUser()
         {
             foreach (Portata portata in portate) 
             {
@@ -113,7 +112,7 @@ namespace Unicam.Ristorante.Testing.Controllers
                 new Claim("Cognome", utente.Cognome),
                 new Claim("Ruolo", utente.Ruolo.ToString())
             };
-            var identity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
+            var identity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme, nameType: "Id", roleType: "Ruolo");
             var principal = new ClaimsPrincipal(identity);
 
             _controller.ControllerContext = new ControllerContext
@@ -159,7 +158,7 @@ namespace Unicam.Ristorante.Testing.Controllers
 
             var baseResponseValue = (BaseResponse<CreateOrdineResponse>)okResult.Value;
             Assert.True(baseResponseValue.Success);
-            Assert.That(baseResponseValue.Result.VociOrdine.Count, Is.EqualTo(2));
+            Assert.That(baseResponseValue.Result.Ordine.Voci.Count, Is.EqualTo(2));
             Assert.That(baseResponseValue.Result.Totale, Is.EqualTo(16M));
         }
 
@@ -187,7 +186,7 @@ namespace Unicam.Ristorante.Testing.Controllers
 
             var baseResponseValue = (BaseResponse<CreateOrdineResponse>)okResult.Value;
             Assert.True(baseResponseValue.Success);
-            Assert.That(baseResponseValue.Result.VociOrdine.Count, Is.EqualTo(4));
+            Assert.That(baseResponseValue.Result.Ordine.Voci.Count, Is.EqualTo(4));
             Assert.That(baseResponseValue.Result.Totale, Is.EqualTo(31.9M));
         }
 
@@ -217,7 +216,7 @@ namespace Unicam.Ristorante.Testing.Controllers
 
             var baseResponseValue = (BaseResponse<CreateOrdineResponse>)okResult.Value;
             Assert.True(baseResponseValue.Success);
-            Assert.That(baseResponseValue.Result.VociOrdine.Count, Is.EqualTo(6));
+            Assert.That(baseResponseValue.Result.Ordine.Voci.Count, Is.EqualTo(6));
             Assert.That(baseResponseValue.Result.Totale, Is.EqualTo(139.7M));
         }
 

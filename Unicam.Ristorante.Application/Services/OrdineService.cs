@@ -78,5 +78,10 @@ namespace Unicam.Ristorante.Application.Services
                 .SelectMany(v => Enumerable.Repeat(v.Portata.Prezzo ?? 0, v.Quantita ?? 0))
                 .ToList();
         }
+
+        public async Task<List<Ordine>> GetOrdiniAsync(DateTime startDate, DateTime endDate, int? id)
+        {
+            return await _ordineRepository.OttieniTuttiAsync(startDate, endDate, id);
+        }
     }
 }
