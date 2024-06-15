@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using Unicam.Ristorante.Application.Abstractions.Services;
+﻿using Unicam.Ristorante.Application.Abstractions.Services;
 using Unicam.Ristorante.Models.Entities;
 using Unicam.Ristorante.Models.Repositories;
 
@@ -79,9 +78,9 @@ namespace Unicam.Ristorante.Application.Services
                 .ToList();
         }
 
-        public async Task<List<Ordine>> GetOrdiniAsync(DateTime startDate, DateTime endDate, int? id)
+        public async Task<Tuple<List<Ordine>, int>> GetOrdiniAsync(int from, int num, DateTime startDate, DateTime endDate, int? id)
         {
-            return await _ordineRepository.OttieniTuttiAsync(startDate, endDate, id);
+            return await _ordineRepository.OttieniTuttiAsync(from, num, startDate, endDate, id);
         }
     }
 }

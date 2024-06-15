@@ -38,17 +38,20 @@ namespace Unicam.Ristorante.Web.Controllers
         [HttpGet]
         [Route("list")]
         [Authorize]
-        public async Task<IActionResult> GetOrdiniAsync([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int? id = null)
+        public async Task<IActionResult> GetOrdiniAsync([FromQuery] GetOrdiniRequest request)
         {
             ClaimsIdentity identity = this.User.Identity as ClaimsIdentity;
 
             if (this.User.IsInRole(Ruolo.Cliente.ToString()))
             {
-                id = Int32.Parse(identity.Claims.FirstOrDefault(c => c.Type == identity.NameClaimType).Value);
+                request.IdCliente = Int32.Parse(identity.Claims.FirstOrDefault(c => c.Type == identity.NameClaimType).Value);
             }
 
-            List<Ordine> ordini = await _ordineService.GetOrdiniAsync(startDate, endDate, id);
-            var response = new GetOrdiniResponse(ordini);
+            var ordini = await _ordineService.GetOrdiniAsync(
+                request.DimensionePagina * request.NumeroPagina, request.DimensionePagina,
+                request.DataInizio, request.DataFine, request.IdCliente);
+            var pagineTotali = (int) Math.Ceiling(ordini.Item2 / (decimal) request.DimensionePagina);
+            var response = new GetOrdiniResponse(ordini.Item1, request.NumeroPagina, pagineTotali);
 
             return Ok(ResponseFactory.WithSuccess(response));
         }
