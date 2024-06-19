@@ -19,9 +19,9 @@ namespace Unicam.Ristorante.Application.Services
             await _portataRepository.SaveAsync();
         }
 
-        public async Task<IEnumerable<Portata>> GetPortateAsync()
+        public async Task<Tuple<List<Portata>,int>> GetPortateAsync(int from, int num)
         {
-            return await _portataRepository.OttieniTuttiAsync();
+            return await _portataRepository.OttieniTuttiAsync(from, num);
         }
     }
 }

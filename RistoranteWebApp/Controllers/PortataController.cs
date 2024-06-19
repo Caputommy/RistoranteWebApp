@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Unicam.Ristorante.Application.Abstractions.Services;
 using Unicam.Ristorante.Application.Factory;
 using Unicam.Ristorante.Application.Models.Dtos;
 using Unicam.Ristorante.Application.Models.Requests;
 using Unicam.Ristorante.Application.Models.Responses;
+using Unicam.Ristorante.Models.Entities;
 
 namespace Unicam.Ristorante.Web.Controllers
 {
@@ -35,10 +37,13 @@ namespace Unicam.Ristorante.Web.Controllers
         [HttpGet]
         [Route("list")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetPortateAsync()
+        public async Task<IActionResult> GetPortateAsync([FromQuery] PaginazioneRequest paginazione)
         {
-            var portate = await _portataService.GetPortateAsync();
-            var response = new GetPortateResponse(portate.Select(p => new PortataDto(p)).ToList());
+            var portate = await _portataService.GetPortateAsync(
+                paginazione.DimensionePagina * paginazione.NumeroPagina,
+                paginazione.DimensionePagina);
+            var pagioneTotali = (int)Math.Ceiling(portate.Item2 / (decimal)paginazione.DimensionePagina);
+            var response = new GetPortateResponse(portate.Item1, paginazione.NumeroPagina, pagioneTotali);
             return Ok(ResponseFactory.WithSuccess(response));
         }
     }

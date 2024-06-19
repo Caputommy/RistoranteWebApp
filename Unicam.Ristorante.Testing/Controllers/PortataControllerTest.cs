@@ -67,7 +67,7 @@ namespace Unicam.Ristorante.Testing.Controllers
             {
                 await _controller.CreatePortataAsync(requests[0]);
             }
-            var result = await _controller.GetPortateAsync();
+            var result = await _controller.GetPortateAsync(new PaginazioneRequest(){DimensionePagina = 10, NumeroPagina = 0});
             Assert.That(result, Is.TypeOf<OkObjectResult>());
 
             var okResult = (OkObjectResult)result;

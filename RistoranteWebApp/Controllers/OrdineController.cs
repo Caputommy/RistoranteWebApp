@@ -48,10 +48,11 @@ namespace Unicam.Ristorante.Web.Controllers
             }
 
             var ordini = await _ordineService.GetOrdiniAsync(
-                request.DimensionePagina * request.NumeroPagina, request.DimensionePagina,
+                request.Paginazione.DimensionePagina * request.Paginazione.NumeroPagina, 
+                request.Paginazione.DimensionePagina,
                 request.DataInizio, request.DataFine, request.IdCliente);
-            var pagineTotali = (int) Math.Ceiling(ordini.Item2 / (decimal) request.DimensionePagina);
-            var response = new GetOrdiniResponse(ordini.Item1, request.NumeroPagina, pagineTotali);
+            var pagineTotali = (int) Math.Ceiling(ordini.Item2 / (decimal) request.Paginazione.DimensionePagina);
+            var response = new GetOrdiniResponse(ordini.Item1, request.Paginazione.NumeroPagina, pagineTotali);
 
             return Ok(ResponseFactory.WithSuccess(response));
         }

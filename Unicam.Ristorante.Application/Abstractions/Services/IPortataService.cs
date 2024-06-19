@@ -6,7 +6,7 @@ namespace Unicam.Ristorante.Application.Abstractions.Services
 {
     public interface IPortataService
     {
-        Task<IEnumerable<Portata>> GetPortateAsync();
+        Task<Tuple<List<Portata>,int>> GetPortateAsync(int from, int num);
 
         Task AddPortataAsync(Portata portata);
     }

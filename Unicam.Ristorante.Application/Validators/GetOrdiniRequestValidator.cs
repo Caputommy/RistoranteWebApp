@@ -6,10 +6,9 @@ namespace Unicam.Ristorante.Application.Validators
     public class GetOrdiniRequestValidator : AbstractValidator<GetOrdiniRequest>
     {
         public static string RequiredDateMessage = "Entrambe le date di inzio e fine sono richieste";
-        public static string RequiredPageSizeMessage = "Dimensione della pagina richiesta";
-        public static string RequiredPageNumMessage = "Dimensione della pagina richiesta";
-        public static string PositivePageSizeMessage = "La dimensione della pagina deve essere maggiore di 0";
-        public static string PositivePageNumMessage = "Il numero di pagina deve essere maggiore o uguale a 0";
+        public static string InvalidDateMessage = "La data di inizio deve essere precedente a quella di fine";
+        public static string RequiredClienteMessage = "Id cliente richiesto";
+        public static string RequiredPaginazioneMessage = "Paginazione richiesta";
 
         public GetOrdiniRequestValidator()
         {
@@ -21,13 +20,16 @@ namespace Unicam.Ristorante.Application.Validators
                 .NotNull().WithMessage(RequiredDateMessage)
                 .NotEmpty().WithMessage(RequiredDateMessage);
 
-            RuleFor(p => p.DimensionePagina)
-                .NotNull().WithMessage(RequiredPageSizeMessage)
-                .GreaterThan(0).WithMessage(PositivePageSizeMessage);
+            RuleFor(r => new { r.DataInizio, r.DataFine })
+                .Must(r => r.DataInizio < r.DataFine)
+                .WithMessage(InvalidDateMessage);
 
-            RuleFor(p => p.NumeroPagina)
-                .NotNull().WithMessage(RequiredPageNumMessage)
-                .GreaterThanOrEqualTo(0).WithMessage(PositivePageNumMessage);
+            RuleFor(r => r.IdCliente)
+                .NotNull().WithMessage(RequiredClienteMessage);
+
+            RuleFor(r => r.Paginazione)
+                .NotNull().WithMessage(RequiredPaginazioneMessage)
+                .SetValidator(new PaginazioneRequestValidator());
         }
     }
 }
