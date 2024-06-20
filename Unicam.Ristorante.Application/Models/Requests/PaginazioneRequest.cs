@@ -3,6 +3,6 @@
     public class PaginazioneRequest
     {
         public int DimensionePagina { get; set; } = 10;
-        public int NumeroPagina { get; set; } = 0;
+        public int NumeroPagina     { get; set; } = 0;
     }
 }

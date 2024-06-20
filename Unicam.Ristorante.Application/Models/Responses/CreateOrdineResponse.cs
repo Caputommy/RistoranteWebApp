@@ -5,8 +5,8 @@ namespace Unicam.Ristorante.Application.Models.Responses
 {
     public class CreateOrdineResponse
     {
-        public OrdineDto? Ordine { get; set; } = null!;
-        public decimal? Totale { get; set; } = null;
+        public OrdineDto?   Ordine { get; set; } = null;
+        public decimal?     Totale { get; set; } = null;
 
         public CreateOrdineResponse(Ordine ordine, decimal totale)
         {

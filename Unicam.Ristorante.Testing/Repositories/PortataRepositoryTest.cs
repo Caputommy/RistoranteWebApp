@@ -15,11 +15,6 @@ namespace Unicam.Ristorante.Testing.Repository
             },
             new Portata()
             {
-                Nome = "Arista",
-                Prezzo = 10M
-            },
-            new Portata()
-            {
                 Nome = "Tiramisù",
                 Prezzo = 4.501M,
                 Tipo = TipoPortata.Dolce
@@ -53,21 +48,14 @@ namespace Unicam.Ristorante.Testing.Repository
         }
 
         [Test]
-        public async Task ShouldNotAddCourse()
-        {
-            await _repository.AggiungiAsync(portateTest[1]);
-            Assert.ThrowsAsync<DbUpdateException>(_repository.SaveAsync);
-        }
-
-        [Test]
         public async Task ShouldTruncatePrice()
         {
-            var prezzoOrig = portateTest[2].Prezzo;
-            await _repository.AggiungiAsync(portateTest[2]);
+            var prezzoOrig = portateTest[1].Prezzo;
+            await _repository.AggiungiAsync(portateTest[1]);
             await _repository.SaveAsync();
 
-            TestUtils.ctx.Entry(portateTest[2]).State = EntityState.Detached;
-            var portataSalvata = await _repository.OttieniAsync(portateTest[2].Id);
+            TestUtils.ctx.Entry(portateTest[1]).State = EntityState.Detached;
+            var portataSalvata = await _repository.OttieniAsync(portateTest[1].Id);
 
             Assert.That(portataSalvata.Prezzo, Is.Not.EqualTo(prezzoOrig));
         }

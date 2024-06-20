@@ -35,5 +35,12 @@ namespace Unicam.Ristorante.Testing
         {
             ctx.ChangeTracker.Clear();
         }
+
+        internal static async Task SetUpSampleDatabase()
+        {
+            string script = await File.ReadAllTextAsync("EsempioIstanzaDB.sql");
+            script = script.Replace("GO", "");
+            await ctx.Database.ExecuteSqlRawAsync(script);
+        }
     }
 }

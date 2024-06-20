@@ -4,10 +4,10 @@ namespace Unicam.Ristorante.Application.Models.Requests
 {
     public class CreateClienteRequest
     {
-        public string Email { get; set; } = null!;
-        public string Nome {  get; set; } = null!;
-        public string Cognome { get; set; } = null!;
-        public string Password { get; set; } = null!;
+        public string   Email       { get; set; } = string.Empty;
+        public string?  Nome        { get; set; } = string.Empty;
+        public string?  Cognome     { get; set; } = string.Empty;
+        public string   Password    { get; set; } = string.Empty;
 
         public Utente ToEntity()
         {

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Unicam.Ristorante.Application.Models.Dtos;
+﻿using Microsoft.AspNetCore.Mvc;
 using Unicam.Ristorante.Application.Models.Requests;
 using Unicam.Ristorante.Application.Models.Responses;
 using Unicam.Ristorante.Application.Services;

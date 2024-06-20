@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Unicam.Ristorante.Application.Abstractions.Services;
 using Unicam.Ristorante.Application.Services;
+using Unicam.Ristorante.Models.Entities;
 
 namespace Unicam.Ristorante.Application.Extensions
 {
@@ -17,6 +19,7 @@ namespace Unicam.Ristorante.Application.Extensions
             services.AddScoped<IUtenteService, UtenteService>();
             services.AddScoped<IPortataService, PortataService>();
             services.AddScoped<IOrdineService, OrdineService>();
+            services.AddScoped<IPasswordHasher<Utente>, PasswordHasher<Utente>>();
 
             return services;
         }

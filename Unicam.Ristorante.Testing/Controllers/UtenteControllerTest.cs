@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Unicam.Ristorante.Application.Models.Requests;
 using Unicam.Ristorante.Application.Models.Responses;
@@ -11,7 +12,7 @@ namespace Unicam.Ristorante.Testing.Controllers
     public class UtenteControllerTest
     {
         private UtenteController _controller = 
-            new UtenteController(new UtenteService(new UtenteRepository(TestUtils.ctx)));
+            new UtenteController(new UtenteService(new UtenteRepository(TestUtils.ctx), new PasswordHasher<Utente>()));
 
         private static CreateClienteRequest[] requests =
         {
@@ -26,7 +27,8 @@ namespace Unicam.Ristorante.Testing.Controllers
             {
                 Email = "mario.rossi@popmail.com",
                 Nome = "Mario",
-                Cognome = "Rossi"
+                Cognome = "Rossi",
+                Password = null!
             },
             new CreateClienteRequest()
             {
@@ -58,9 +60,9 @@ namespace Unicam.Ristorante.Testing.Controllers
         }
 
         [Test]
-        public void ShouldNotAddUserWithMissinPassword()
+        public void ShouldNotAddUserWithMissingPassword()
         {
-            Assert.ThrowsAsync<DbUpdateException>(async () => await _controller.CreateClienteAsync(requests[1]));
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await _controller.CreateClienteAsync(requests[1]));
         }
 
         [Test]
@@ -76,7 +78,7 @@ namespace Unicam.Ristorante.Testing.Controllers
             var baseResponseValue = (BaseResponse<CreateClienteResponse>)okResult.Value;
             Assert.True(baseResponseValue.Success);
             Assert.That(baseResponseValue.Result.Utente.Email, Is.EqualTo(requests[2].Email));
-            Assert.That(baseResponseValue.Result.Utente.Nome, Is.Null);
+            Assert.That(baseResponseValue.Result.Utente.Nome, Is.Empty);
         }
     }
 }

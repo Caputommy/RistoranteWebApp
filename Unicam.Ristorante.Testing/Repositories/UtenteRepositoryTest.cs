@@ -19,10 +19,12 @@ namespace Unicam.Ristorante.Testing.Repository
             },
             new Utente()
             {
-                Email = "marco.caputo@hotmail.it"
+                Email = "marco.caputo@hotmail.it",
+                Password = null!
             },
             new Utente()
             {
+                Email = null!,
                 Nome = "Marco",
                 Cognome = "Caputo",
                 Password = "Password123",

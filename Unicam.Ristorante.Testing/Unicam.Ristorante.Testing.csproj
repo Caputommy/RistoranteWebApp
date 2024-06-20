@@ -23,4 +23,10 @@
     <ProjectReference Include="..\Unicam.Ristorante.Models\Unicam.Ristorante.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="EsempioIstanzaDB.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

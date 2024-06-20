@@ -4,12 +4,13 @@ namespace Unicam.Ristorante.Application.Models.Dtos
 {
     public class OrdineDto
     {
-        public int?                Numero              { get; set; } = null!;
-        public DateTime?           Data                { get; set; } = null!;
+        public int                 Numero              { get; set; }
+        public DateTime            Data                { get; set; } = DateTime.Now;
         public IndirizzoDto        IndirizzoConsegna   { get; set; } = null!;
         public List<VoceOrdineDto> Voci                { get; set; } = Enumerable.Empty<VoceOrdineDto>().ToList();
 
-        
+
+
         public class VoceOrdineDto
         {
             public PortataDto Portata { get; set; } = null!;

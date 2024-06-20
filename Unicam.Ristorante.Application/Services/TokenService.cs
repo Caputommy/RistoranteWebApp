@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Authentication;
@@ -15,11 +16,13 @@ namespace Unicam.Ristorante.Application.Services
     public class TokenService : ITokenService
     {
         private readonly JwtAuthenticationOption _jwtAuthOption;
+        private readonly IPasswordHasher<Utente> _passwordHasher;
         private readonly UtenteRepository _utenteRepository;
 
-        public TokenService(UtenteRepository utenteRepository, IOptions<JwtAuthenticationOption> jwtAuthOption)
+        public TokenService(UtenteRepository utenteRepository, IPasswordHasher<Utente> passwordHasher, IOptions<JwtAuthenticationOption> jwtAuthOption)
         {
             _utenteRepository = utenteRepository;
+            _passwordHasher = passwordHasher;
             _jwtAuthOption = jwtAuthOption.Value;
         }
 
@@ -31,12 +34,17 @@ namespace Unicam.Ristorante.Application.Services
             {
                 throw new InvalidCredentialException($"Utente con email '{createTokenRequest.Email}'  non trovato");
             }
-            if (!utente.Password.Equals(createTokenRequest.Password))
+            if (!IsValidPassword(utente, createTokenRequest.Password))
             {
                 throw new InvalidCredentialException($"La password non corrisponde alla password dell'utente");
             }
 
             return CreateToken(utente);
+        }
+
+        private Boolean IsValidPassword(Utente utente, string password)
+        {
+            return _passwordHasher.VerifyHashedPassword(utente, utente.Password, password) == PasswordVerificationResult.Success;
         }
 
         private string CreateToken(Utente utente)

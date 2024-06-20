@@ -2,7 +2,7 @@
 {
     public class PaginazioneResponse
     {
-        public int? NumeroPagina { get; set; } = null!;
-        public int? PagineTotali { get; set; } = null!;
+        public int NumeroPagina { get; set; }
+        public int PagineTotali { get; set; }
     }
 }

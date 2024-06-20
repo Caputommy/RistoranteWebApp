@@ -5,8 +5,8 @@ namespace Unicam.Ristorante.Application.Models.Responses
 {
     public class GetPortateResponse
     {
-        public List<PortataDto> Portate { get; set; } = new List<PortataDto>();
-        public PaginazioneResponse Paginazione { get; set; } = null!;
+        public List<PortataDto>     Portate     { get; set; } = new List<PortataDto>();
+        public PaginazioneResponse  Paginazione { get; set; } = null!;
         
         public GetPortateResponse(List<Portata> portate, int numeroPagina, int pagineTotali)
         {

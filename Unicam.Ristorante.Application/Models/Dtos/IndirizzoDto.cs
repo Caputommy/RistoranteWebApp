@@ -4,10 +4,10 @@ namespace Unicam.Ristorante.Application.Models.Dtos
 {
     public class IndirizzoDto
     {
-        public string Via { get; set; } = null!;
-        public string NumeroCivico { get; set; } = null!;
-        public string Citta { get; set; } = null!;
-        public string CAP { get; set; } = null!;
+        public string Via           { get; set; } = null!;
+        public string NumeroCivico  { get; set; } = null!;
+        public string Citta         { get; set; } = null!;
+        public string CAP           { get; set; } = null!;
 
         public IndirizzoDto()
         {

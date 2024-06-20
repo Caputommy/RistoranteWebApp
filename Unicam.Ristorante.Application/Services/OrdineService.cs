@@ -74,7 +74,7 @@ namespace Unicam.Ristorante.Application.Services
             return ordine.Voci
                 .Where(v => v.Portata.Tipo == tipo)
                 .OrderByDescending(v => v.Portata.Prezzo)
-                .SelectMany(v => Enumerable.Repeat(v.Portata.Prezzo ?? 0, v.Quantita ?? 0))
+                .SelectMany(v => Enumerable.Repeat(v.Portata.Prezzo, v.Quantita))
                 .ToList();
         }
 

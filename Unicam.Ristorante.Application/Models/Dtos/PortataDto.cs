@@ -4,10 +4,10 @@ namespace Unicam.Ristorante.Application.Models.Dtos
 {
     public class PortataDto
     {
-        public int?       Id      { get; set; } = null!;
-        public string?    Nome    { get; set; } = null!;
-        public decimal?   Prezzo  { get; set; } = null!;
-        public string?    Tipo    { get; set; } = null!;
+        public int        Id      { get; set; }
+        public string     Nome    { get; set; } = string.Empty;
+        public decimal    Prezzo  { get; set; }
+        public string     Tipo    { get; set; } = string.Empty;
 
         public PortataDto(Portata portata)
         {

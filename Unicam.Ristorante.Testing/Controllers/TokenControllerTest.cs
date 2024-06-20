@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Security.Authentication;
 using Unicam.Ristorante.Application.Models.Requests;
@@ -22,9 +23,9 @@ namespace Unicam.Ristorante.Testing.Controllers
             TestUtils.config.GetSection("JwtAuthentication").Bind(jwtAuthenticationOption);
 
             _tokenController = new TokenController(
-                new TokenService(new UtenteRepository(TestUtils.ctx), Options.Create(jwtAuthenticationOption)));
+                new TokenService(new UtenteRepository(TestUtils.ctx), new PasswordHasher<Utente>(), Options.Create(jwtAuthenticationOption)));
 
-            _utenteController = new UtenteController(new UtenteService(new UtenteRepository(TestUtils.ctx)));
+            _utenteController = new UtenteController(new UtenteService(new UtenteRepository(TestUtils.ctx), new PasswordHasher<Utente>()));
         }
 
         private static CreateTokenRequest[] requests =

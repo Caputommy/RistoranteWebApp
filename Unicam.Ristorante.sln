@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unicam.Ristorante.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unicam.Ristorante.Testing", "Unicam.Ristorante.Testing\Unicam.Ristorante.Testing.csproj", "{799337FB-36C8-4000-80F8-69E682E87B17}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementi di soluzione", "Elementi di soluzione", "{6B09B717-6279-43FF-A395-8E32FD87ED26}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlScripts", "SqlScripts", "{AA8FF002-86DB-4D8E-B08F-8B221B45BF75}"
 	ProjectSection(SolutionItems) = preProject
 		EsempioIstanzaDB.sql = EsempioIstanzaDB.sql
 		SchemaDB.sql = SchemaDB.sql

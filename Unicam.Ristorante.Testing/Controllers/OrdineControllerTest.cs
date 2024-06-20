@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 
 namespace Unicam.Ristorante.Testing.Controllers
 {
@@ -17,7 +18,8 @@ namespace Unicam.Ristorante.Testing.Controllers
         private static IndirizzoRepository _indirizzoRepository = new IndirizzoRepository(TestUtils.ctx);
         private static PortataRepository _portataRepository = new PortataRepository(TestUtils.ctx);
 
-        private UtenteController utenteController = new UtenteController(new UtenteService(new UtenteRepository(TestUtils.ctx)));
+        private UtenteController utenteController = 
+            new UtenteController(new UtenteService(new UtenteRepository(TestUtils.ctx), new PasswordHasher<Utente>()));
 
         private OrdineController _controller =
             new OrdineController(new OrdineService(new OrdineRepository(TestUtils.ctx), _indirizzoRepository, _portataRepository));
@@ -79,6 +81,27 @@ namespace Unicam.Ristorante.Testing.Controllers
             }
         };
 
+        private static UtenteDto[] utenti = {
+            new UtenteDto()
+            {
+                Id = 1,
+                Email = "mario.rossi@example.com",
+                Nome = "Mario",
+                Cognome = "Rossi",
+                Password = "Password123",
+                Ruolo = Ruolo.Amministratore
+            },
+            new UtenteDto()
+            {
+                Id = 2,
+                Email = "luigi.bianchi@example.com",
+                Nome = "Luigi",
+                Cognome = "Bianchi",
+                Password = "Password456",
+                Ruolo = Ruolo.Cliente
+            }
+        };
+
         [SetUp]
         public async Task CreateCoursesAndMockUser()
         {
@@ -93,7 +116,7 @@ namespace Unicam.Ristorante.Testing.Controllers
                 portata.Id = (int)((BaseResponse<CreatePortataResponse>)((OkObjectResult)response).Value).Result.Portata.Id;
             }
 
-            var requests = new CreateClienteRequest()
+            var request = new CreateClienteRequest()
             {
                 Email = "marco.caputo@popmail.com",
                 Nome = "Marco",
@@ -101,9 +124,14 @@ namespace Unicam.Ristorante.Testing.Controllers
                 Password = "Password123"
             };
 
-            var result = await utenteController.CreateClienteAsync(requests);
+            var result = await utenteController.CreateClienteAsync(request);
             var utente = ((BaseResponse<CreateClienteResponse>)((OkObjectResult)result).Value).Result.Utente;
 
+            MockControllerWithUser(utente);
+        }
+
+        private void MockControllerWithUser(UtenteDto utente) 
+        {
             var claims = new List<Claim>
             {
                 new Claim("Id", utente.Id.ToString()),
@@ -260,7 +288,7 @@ namespace Unicam.Ristorante.Testing.Controllers
         }
 
         [Test]
-        public async Task ShouldNotFindCourse()
+        public void ShouldNotFindCourse()
         {
             CreateOrdineRequest request = new CreateOrdineRequest()
             {
@@ -274,6 +302,160 @@ namespace Unicam.Ristorante.Testing.Controllers
             };
 
             Assert.ThrowsAsync<ArgumentException>(() => _controller.CreateOrdineAsync(request));
+        }
+
+        [Test]
+        public async Task ShouldGetOrders()
+        {
+            await TestUtils.SetUpSampleDatabase();
+            MockControllerWithUser(utenti[0]);
+
+            GetOrdiniRequest request = new GetOrdiniRequest()
+            {
+                Paginazione = new PaginazioneRequest()
+                {
+                    DimensionePagina = 10,
+                    NumeroPagina = 0
+                },
+                DataInizio = DateTime.MinValue,
+                DataFine = DateTime.MaxValue,
+                IdCliente = null
+            };
+
+            var result = await _controller.GetOrdiniAsync(request);
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+
+            var okResult = (OkObjectResult)result;
+            Assert.That(okResult.Value, Is.TypeOf<BaseResponse<GetOrdiniResponse>>());
+            var baseResponseValue = (BaseResponse<GetOrdiniResponse>)okResult.Value;
+            Assert.True(baseResponseValue.Success);
+
+            Assert.That(baseResponseValue.Result.Ordini.Count, Is.EqualTo(6));
+            Assert.That(baseResponseValue.Result.Ordini[0].Data, Is.EqualTo(new DateTime(2024, 1, 1, 12, 0, 0)));
+            Assert.That(baseResponseValue.Result.Ordini[0].Voci.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task ShouldGetOrdersWithPaging()
+        {
+            await TestUtils.SetUpSampleDatabase();
+            MockControllerWithUser(utenti[0]);
+
+            GetOrdiniRequest request = new GetOrdiniRequest()
+            {
+                Paginazione = new PaginazioneRequest()
+                {
+                    DimensionePagina = 4,
+                    NumeroPagina = 0
+                },
+                DataInizio = DateTime.MinValue,
+                DataFine = DateTime.MaxValue,
+                IdCliente = null
+            };
+
+            var result = await _controller.GetOrdiniAsync(request);
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+
+            var okResult = (OkObjectResult)result;
+            Assert.That(okResult.Value, Is.TypeOf<BaseResponse<GetOrdiniResponse>>());
+            var baseResponseValue = (BaseResponse<GetOrdiniResponse>)okResult.Value;
+            Assert.True(baseResponseValue.Success);
+
+            Assert.That(baseResponseValue.Result.Ordini.Count, Is.EqualTo(4));
+            Assert.That(baseResponseValue.Result.Ordini[3].Data, Is.EqualTo(new DateTime(2024, 4, 1, 18, 30, 0)));
+            Assert.That(baseResponseValue.Result.Paginazione.NumeroPagina, Is.EqualTo(0));
+            Assert.That(baseResponseValue.Result.Paginazione.PagineTotali, Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task ShouldFilterByDate()
+        {
+            await TestUtils.SetUpSampleDatabase();
+            MockControllerWithUser(utenti[0]);
+
+            GetOrdiniRequest request = new GetOrdiniRequest()
+            {
+                Paginazione = new PaginazioneRequest()
+                {
+                    DimensionePagina = 10,
+                    NumeroPagina = 0
+                },
+                DataInizio = new DateTime(2024, 3, 1, 0, 0, 0),
+                DataFine = new DateTime(2024, 6, 1, 20, 0, 0),
+                IdCliente = null
+            };
+
+            var result = await _controller.GetOrdiniAsync(request);
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+
+            var okResult = (OkObjectResult)result;
+            Assert.That(okResult.Value, Is.TypeOf<BaseResponse<GetOrdiniResponse>>());
+            var baseResponseValue = (BaseResponse<GetOrdiniResponse>)okResult.Value;
+            Assert.True(baseResponseValue.Success);
+
+            Assert.That(baseResponseValue.Result.Ordini.Count, Is.EqualTo(4));
+            Assert.That(baseResponseValue.Result.Ordini[2].Data, Is.EqualTo(new DateTime(2024, 5, 1, 19, 0, 0)));
+        }
+
+        [Test]
+        public async Task ShouldGetCustomerOrders()
+        {
+            await TestUtils.SetUpSampleDatabase();
+            MockControllerWithUser(utenti[1]);
+
+            GetOrdiniRequest request = new GetOrdiniRequest()
+            {
+                Paginazione = new PaginazioneRequest()
+                {
+                    DimensionePagina = 10,
+                    NumeroPagina = 0
+                },
+                DataInizio = DateTime.MinValue,
+                DataFine = DateTime.MaxValue,
+                IdCliente = null
+            };
+
+            var result = await _controller.GetOrdiniAsync(request);
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+
+            var okResult = (OkObjectResult)result;
+            Assert.That(okResult.Value, Is.TypeOf<BaseResponse<GetOrdiniResponse>>());
+            var baseResponseValue = (BaseResponse<GetOrdiniResponse>)okResult.Value;
+            Assert.True(baseResponseValue.Success);
+
+            Assert.That(baseResponseValue.Result.Ordini.Count, Is.EqualTo(2));
+            Assert.That(baseResponseValue.Result.Ordini[0].Data, Is.EqualTo(new DateTime(2024, 2, 1, 13, 00, 0)));
+            Assert.That(baseResponseValue.Result.Ordini[1].Data, Is.EqualTo(new DateTime(2024, 4, 1, 18, 30, 0)));
+        }
+
+        [Test]
+        public async Task ShouldGetCustomerOrdersByDate()
+        {
+            await TestUtils.SetUpSampleDatabase();
+            MockControllerWithUser(utenti[1]);
+
+            GetOrdiniRequest request = new GetOrdiniRequest()
+            {
+                Paginazione = new PaginazioneRequest()
+                {
+                    DimensionePagina = 10,
+                    NumeroPagina = 0
+                },
+                DataInizio = new DateTime(2024, 3, 1, 0, 0, 0),
+                DataFine = new DateTime(2024, 5, 1, 20, 0, 0),
+                IdCliente = null
+            };
+
+            var result = await _controller.GetOrdiniAsync(request);
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+
+            var okResult = (OkObjectResult)result;
+            Assert.That(okResult.Value, Is.TypeOf<BaseResponse<GetOrdiniResponse>>());
+            var baseResponseValue = (BaseResponse<GetOrdiniResponse>)okResult.Value;
+            Assert.True(baseResponseValue.Success);
+
+            Assert.That(baseResponseValue.Result.Ordini.Count, Is.EqualTo(1));
+            Assert.That(baseResponseValue.Result.Ordini[0].Data, Is.EqualTo(new DateTime(2024, 4, 1, 18, 30, 0)));
         }
     }
 }
