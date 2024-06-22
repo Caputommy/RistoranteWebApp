@@ -7,7 +7,6 @@ namespace Unicam.Ristorante.Application.Validators
     {
         public static string RequiredDateMessage = "Entrambe le date di inzio e fine sono richieste";
         public static string InvalidDateMessage = "La data di inizio deve essere precedente a quella di fine";
-        public static string RequiredClienteMessage = "Id cliente richiesto";
         public static string RequiredPaginazioneMessage = "Paginazione richiesta";
 
         public GetOrdiniRequestValidator()
@@ -23,9 +22,6 @@ namespace Unicam.Ristorante.Application.Validators
             RuleFor(r => new { r.DataInizio, r.DataFine })
                 .Must(r => r.DataInizio < r.DataFine)
                 .WithMessage(InvalidDateMessage);
-
-            RuleFor(r => r.IdCliente)
-                .NotNull().WithMessage(RequiredClienteMessage);
 
             RuleFor(r => r.Paginazione)
                 .NotNull().WithMessage(RequiredPaginazioneMessage)

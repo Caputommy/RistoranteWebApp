@@ -63,14 +63,11 @@ namespace Unicam.Ristorante.Testing.Validators
         }
 
         [Test]
-        public void ShouldNotValidate1()
+        public void ShouldValidateWithNullCustomer()
         {
             var result = new GetOrdiniRequestValidator().Validate(requests[1]);
 
-            Assert.False(result.IsValid);
-            Assert.That(result.Errors, Has.Count.EqualTo(1));
-            Assert.That(result.Errors[0].PropertyName, Is.EqualTo("IdCliente"));
-            Assert.That(result.Errors[0].ErrorMessage, Is.EqualTo(GetOrdiniRequestValidator.RequiredClienteMessage));
+            Assert.True(result.IsValid);
         }
 
         [Test]

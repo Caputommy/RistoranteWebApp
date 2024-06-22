@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [Ristorante]    Script Date: 01/05/2024 10:51:33 ******/
+/****** Object:  Database [Ristorante]    Script Date: 22/06/2024 16:34:29 ******/
 CREATE DATABASE [Ristorante]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -84,12 +84,12 @@ ALTER DATABASE [Ristorante] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANU
 GO
 USE [Ristorante]
 GO
-/****** Object:  User [RistoranteWebApp]    Script Date: 01/05/2024 10:51:33 ******/
+/****** Object:  User [RistoranteWebApp]    Script Date: 22/06/2024 16:34:29 ******/
 CREATE USER [RistoranteWebApp] FOR LOGIN [RistoranteWebApp] WITH DEFAULT_SCHEMA=[dbo]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [RistoranteWebApp]
 GO
-/****** Object:  Table [dbo].[Indirizzi]    Script Date: 01/05/2024 10:51:34 ******/
+/****** Object:  Table [dbo].[Indirizzi]    Script Date: 22/06/2024 16:34:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -106,7 +106,7 @@ CREATE TABLE [dbo].[Indirizzi](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Ordini]    Script Date: 01/05/2024 10:51:34 ******/
+/****** Object:  Table [dbo].[Ordini]    Script Date: 22/06/2024 16:34:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -122,7 +122,7 @@ CREATE TABLE [dbo].[Ordini](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Portate]    Script Date: 01/05/2024 10:51:34 ******/
+/****** Object:  Table [dbo].[Portate]    Script Date: 22/06/2024 16:34:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -138,7 +138,7 @@ CREATE TABLE [dbo].[Portate](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Utenti]    Script Date: 01/05/2024 10:51:34 ******/
+/****** Object:  Table [dbo].[Utenti]    Script Date: 22/06/2024 16:34:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -156,7 +156,7 @@ CREATE TABLE [dbo].[Utenti](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[VociOrdine]    Script Date: 01/05/2024 10:51:34 ******/
+/****** Object:  Table [dbo].[VociOrdine]    Script Date: 22/06/2024 16:34:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

@@ -50,9 +50,9 @@ SET IDENTITY_INSERT [dbo].[Utenti] ON
 GO
 INSERT INTO [dbo].[Utenti] ([Id], [Email], [Nome], [Cognome], [Password], [Ruolo])
 VALUES
-(1, 'mario.rossi@example.com', 'Mario', 'Rossi', 'Password123', 2),
-(2, 'luigi.bianchi@example.com', 'Luigi', 'Bianchi', 'Password456', 1),
-(3, 'anna.verdi@example.com', 'Anna', 'Verdi', 'Password789', 1);
+(1, 'mario.rossi@example.com', 'Mario', 'Rossi', 'AQAAAAIAAYagAAAAEJJIddXv0MMUkLsH+TNqvxnPIjTpWeHI9r3KHsX3FdTglUMebI2gF2mY1cLgVbUAiQ==', 2),		--Password: 'Password123'
+(2, 'luigi.bianchi@example.com', 'Luigi', 'Bianchi', 'AQAAAAIAAYagAAAAEEVqdXgt03rqcFWqEAmrm1FgA3hIdDgss8lRwp0L4UlVJto8eUVZXoCgbnkUJ1GfDg==', 1),	--Password: 'Password456'
+(3, 'anna.verdi@example.com', 'Anna', 'Verdi', 'AQAAAAIAAYagAAAAEL9UqU3yM9MXIKHiilPoVS5GWK4/ffkdBZOWtcm2hiqLYl9W7vczIFdrhR1X4lxtSQ==', 1);			--Password: 'Password789'
 GO
 SET IDENTITY_INSERT [dbo].[Utenti] OFF
 GO
