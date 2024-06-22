@@ -1,11 +1,11 @@
 # RistoranteWebApp
 
-RistoranteWebApp Ë un'applicazione Web scritta in C# con .NET Core per la gestione di un ristorante, sviluppata come progetto 
-finale per il corso di Paradigmi Avanzati di Programmazione modulo Programmazione Enterprise, dell'Universit‡ degli Studi di Camerino, 
+RistoranteWebApp √® un'applicazione Web scritta in C# con .NET Core per la gestione di un ristorante, sviluppata come progetto 
+finale per il corso di Paradigmi Avanzati di Programmazione modulo Programmazione Enterprise, dell'Universit√† degli Studi di Camerino, 
 tenuto dal Prof. Federico Paoloni.
 
-In questa App Ë possibile registrare e autenticare clienti, richiedere degli ordini e visualizzare lo storico degli ordini effettuati.
-Per gli utenti amministratori Ë possibile creare portate e visualizzare gli ordini effettuati dai clienti.
+In questa App √® possibile registrare e autenticare clienti, richiedere degli ordini e visualizzare lo storico degli ordini effettuati.
+Per gli utenti amministratori √® possibile creare portate e visualizzare gli ordini effettuati dai clienti.
 
 A seguire le istruzioni dettagliate su come provare il progetto.
 
@@ -39,7 +39,7 @@ A seguire le istruzioni dettagliate su come provare il progetto.
 
 1. Aprire SQL Server Management Studio e connettersi al server locale.
 2. Espandere la cartella `Sicurezza` e fare clic con il pulsante destro del mouse su `Account di accesso`.
-3. Selezionare `Nuovo Account di Accesso`.
+3. Selezionare `Nuovo Account di Accesso` e poi 'Autenticazione di SQL Server'.
 4. Inserire le seguenti informazioni:
     - Nome account: `RistoranteWebApp`
     - Password: `paradigmi123`
@@ -62,7 +62,7 @@ A seguire le istruzioni dettagliate su come provare il progetto.
 | 2   | luigi.bianchi@example.com | Luigi | Bianchi | AQAAAAIAAYagAAAAEEVqdXgt03rqcFWqEAmrm1FgA3hIdDgss8lRwp0L4UlVJto8eUVZXoCgbnkUJ1GfDg==                        | 1     |
 | 3   | anna.verdi@example.com    | Anna  | Verdi   | AQAAAAIAAYagAAAAEL9UqU3yM9MXIKHiilPoVS5GWK4/ffkdBZOWtcm2hiqLYl9W7vczIFdrhR1X4lxtSQ==                        | 1     |
 
-Essendo le password salvate in formato hash, Ë possibile accedere con le seguenti credenziali:
+Essendo le password salvate in formato hash, √® possibile accedere con le seguenti credenziali:
 - (Amministratore)   Email: mario.rossi@example.com     - Password: Paradigmi123
 - (Cliente)          Email: luigi.bianchi@exaple.com    - Password: Paradigmi456
 - (Cliente)          Email: anna.verdi@example.com      - Password: Paradigmi789
@@ -82,14 +82,14 @@ Essendo le password salvate in formato hash, Ë possibile accedere con le seguent
 | 9   | Insalata Greca         | 6.00   | 3    |
 | 10  | Insalata Caprese       | 6.00   | 3    |
 | 11  | Prosciutto e melone    | 7.00   | 3    |
-| 12  | Tiramis˘               | 6.00   | 4    |
+| 12  | Tiramis√π               | 6.00   | 4    |
 | 13  | Gelato                 | 4.50   | 4    |
 | 14  | Cannoli                | 5.00   | 4    |
 | 15  | Panna cotta            | 5.50   | 4    |
 
 #### Tabella `Indirizzi`
 
-| Id  | Via       | NumeroCivico | Citt‡  | CAP   |
+| Id  | Via       | NumeroCivico | Citt√†  | CAP   |
 |-----|-----------|--------------|--------|-------|
 | 1   | Via Roma  | 1            | Roma   | 00100 |
 | 2   | Via Milano| 10           | Milano | 20100 |
@@ -109,7 +109,7 @@ Essendo le password salvate in formato hash, Ë possibile accedere con le seguent
 
 #### Tabella `VociOrdine`
 
-| NumeroOrdine | IdPortata | Quantit‡ |
+| NumeroOrdine | IdPortata | Quantit√† |
 |--------------|-----------|----------|
 | 1            | 1         | 2        |
 | 1            | 2         | 1        |
